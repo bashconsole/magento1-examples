@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Mementia_Saleable>
+            <version>0.1.0</version>
+        </Mementia_Saleable>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <saleable>
+                    <file>saleable.xml</file>
+                </saleable>
+            </updates>
+        </layout>
+    </frontend>
+</config>

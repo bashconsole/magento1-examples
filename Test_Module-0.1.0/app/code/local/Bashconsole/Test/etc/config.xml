@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Bashconsole_Test>
+      <version>0.1.0</version>
+    </Bashconsole_Test>
+  </modules>
+      <frontend>
+        <layout>
+            <updates>
+                <test>
+                    <file>test.xml</file>
+                </test>
+            </updates>
+        </layout>
+    </frontend>
+  <global>
+    <helpers>
+      <test>
+        <class>Bashconsole_Test_Helper</class>
+      </test>
+    </helpers>
+	<models>
+	  <test>
+		<class>Bashconsole_Test_Model</class>
+		<resourceModel>test_mysql4</resourceModel>
+	  </test>
+	</models>
+	<resources>
+	  <gmpn1440937887_setup>
+		<setup>
+		  <module>Bashconsole_Test</module>
+		  <class>Mage_Eav_Model_Entity_Setup</class>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </gmpn1440937887_setup>
+	  <gmpn1440937887_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </gmpn1440937887_write>
+	  <gmpn1440937887_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </gmpn1440937887_read>
+	</resources>
+    <events>
+	  <catalog_controller_product_view> <!-- identifier of the event we want to catch -->
+        <observers>
+          <catalog_controller_product_view_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>test/observer</class> <!-- observers class alias -->
+            <method>AddGoogleMPN</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </catalog_controller_product_view_handler>
+        </observers>
+      </catalog_controller_product_view>
+    </events>
+  </global>
+</config> 

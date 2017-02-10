@@ -1,0 +1,209 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+    $dir = $this->getRequest()
+        ->getParam('dir');
+
+    $dir = ($dir !== null) ? $dir : Mage::getBlockSingleton('catalog/product_list_toolbar')->getCurrentDirection();
+    //if(!$dir || !in_array($dir, array('asc', 'desc'))) $dir = 'asc';
+
+    $currPage = Mage::app()->getRequest()->getParam('p');
+    if(!$currPage) $currPage = 1;
+
+    $allProdCount = $this->getAllProductsCount();
+
+    $defaultLimit = Mage::getStoreConfig('catalog/frontend/grid_per_page');
+    $limit = Mage::app()->getRequest()->getParam('limit');
+    if($limit && $limit == 'all') $limit = $allProdCount;
+    else $limit = $defaultLimit;
+
+    $_productCollection = $this->_getAlterProductCollection();
+    $_collectionSize = $_productCollection->count();
+    $_columnCount = 3;
+
+    $_helper = $this->helper('catalog/output');
+    $_extendedHelper = $this->helper('extended');
+
+    $attr = Mage::getModel('catalog/product')->getResource()->getAttribute("is_top_of_sales");
+    if($attr->usesSource())
+    {
+        $is_on_hit = $attr->getSource()->getOptionId("Показывать в блоке Хиты продаж");
+        $is_hit = $attr->getSource()->getOptionId("Хит");
+        $is_empty = $attr->getSource()->getOptionId("Empty");
+    }
+
+    $currCatId = Mage::getSingleton('catalog/layer')->getCurrentCategory()->getId();
+    $_currCat = Mage::getModel('catalog/category')->load($currCatId);
+?>
+<?php if(!$_productCollection->count()) : ?>
+    <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else : ?>
+    <div class="category-products">
+        <?php echo $this->getChildHtml('category.bestsellers'); ?>
+
+        <div class="products-sorting">
+            <strong><?php echo $this->__('Sort by'); ?>:&nbsp;</strong>
+            <a href="<?php $toggleDir = $dir == 'asc' ? 'desc' : 'asc'; echo $this->getUrlWithParams('dir', $toggleDir); ?>" title="<?php echo $dir == 'asc' ? $this->__('Sort descending') : $this->__('Sort ascending'); ?>" alt="<?php echo $dir == 'asc' ? $this->__('Sort descending') : $this->__('Sort ascending'); ?>"><?php echo $this->__('by price'); ?><img src="<?php echo Mage::app()->getLayout()->getBlock('head')->getSkinUrl(); ?>images/sort-<?php echo $dir; ?>.png" title="<?php echo $this->__("Sort by price"); ?>" alt="<?php echo $this->__("Sort by price"); ?>" /></a>
+            <div class="clear"></div>
+        </div>
+
+        <?php $i = 0; foreach($_productCollection as $_product) : ?>
+        <?php if($i % $_columnCount == 0) : ?>
+            <?php if($i == $_columnCount && $this->getRequest()->getControllerName() != 'result' && $this->getRequest()->getControllerName() != 'advanced') : ?>
+                <?php echo $banners = $this->getChild('ibanner_content_middle')->toHtml(); ?>
+            <?php else : ?>
+                <?php $banners = ''; ?>
+            <?php endif; ?>
+            <?php $ulClosed = false; ?>
+        <ul class="products-grid<?php if($i == $_columnCount && trim($banners) != '') : ?> under-banner<?php endif; ?>">
+        <?php endif; ?>
+            <li class="item<?php if($i != 0 && ($i + 1) % $_columnCount == 0) echo ' last'; ?>">
+                <div class="container">
+                    <a href="<?php echo $_product->getUrlModel()->getUrl($_product, array('_ignore_category'=>true)) ?>" title="<?php echo $this->stripTags($_product->getName(), null, true); ?>" class="product-image">
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->setWatermarkSize('125x29')->resize(190, 190); ?>" width="190" height="190" alt="<?php echo $this->stripTags($_product->getName(), null, true); ?>" title="<?php echo $this->stripTags($_product->getName(), null, true); ?>" />
+                        <?php
+                            $height = 0;
+                            $isTopOfSales = explode(',', $_product->getIsTopOfSales());
+                            if(!empty($isTopOfSales) && in_array($is_hit, $isTopOfSales) && !in_array($is_empty, $isTopOfSales)) $height += 23;
+                            if($_extendedHelper->isOnSale($_product)) $height += 23;
+                            if($_extendedHelper->isTrending($_product)) $height += 23;
+                        ?>
+                        <div class="product-icons" style="margin-top: -<?php echo $height; ?>px;">
+                        <?php if(!empty($isTopOfSales) && in_array($is_hit, $isTopOfSales) && !in_array($is_empty, $isTopOfSales)) : ?>
+                            <div class="bestseller-icon"></div>
+                        <?php endif; ?>
+                        <?php if($_extendedHelper->isOnSale($_product)) : ?>
+                            <div class="action-icon"></div>
+                        <?php endif; ?>
+                        <?php if($_extendedHelper->isTrending($_product)) : ?>
+                            <div class="new-icon"></div>
+                        <?php endif; ?>
+                        </div>
+                        <div class="image-border"></div>
+                    </a>
+                    <h2 class="product-name"><a href="<?php echo $_product->getUrlModel()->getUrl($_product, array('_ignore_category'=>true)) ?>" title="<?php echo $this->stripTags($_product->getName(), null, true); ?>"><?php echo $this->stripTags($this->helper('core/string')->truncate($_helper->productAttribute($_product, $_product->getName(), 'name'), 70, ' ...', $_remainder, false)); ?></a></h2>
+                    <table>
+                        <tr>
+                            <td class="price-td<?php if((!empty($isTopOfSales) && (in_array($is_hit, $isTopOfSales) && !in_array($is_empty, $isTopOfSales))) || $_extendedHelper->isOnSale($_product)) : ?> orange<?php endif; ?>">
+                                <?php if($_product->getRatingSummary()) : ?>
+                                    <?php echo $this->getReviewsSummaryHtml($_product, 'short'); ?>
+                                <?php endif; ?>
+                                <?php echo $this->getPriceHtml($_product, true); ?>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="clear"></div>
+                    <div class="actions">
+                        <button type="button" class="buy-btn button btn-cart<?php if($_extendedHelper->isOnSale($_product)) : ?> orange <?php elseif($_product->isSaleable()) : ?> saleable<?php endif; ?>" onclick="showCartPopup('product', '<?php echo $_product->getId(); ?>');"><span><span><?php echo $this->__('Buy'); ?></span></span></button>
+                        <div class="buy-loading" style="display: none;"></div>
+
+                        <?php if(!$_product->isSaleable() && false) : ?>
+                            <button type="button" class="button btn-cart out-of-stock"><span><span><?php echo $this->__('Сообщить о наличии'); ?></span></span></button>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </li>
+        <?php if($i != 0 && ($i + 1) % $_columnCount == 0) : ?>
+        <?php $ulClosed = true; ?>
+        </ul>
+        <?php endif; $i++; ?>
+        <?php endforeach; ?>
+        <?php if(!$ulClosed) : ?>
+        </ul>
+        <?php endif; ?>
+
+        <?php if($limit == $defaultLimit) : ?>
+        <?php $pagesCount = floor($allProdCount / $defaultLimit); ?>
+        <?php if($allProdCount % $defaultLimit != 0) $pagesCount++; ?>
+        <div class="pager">
+            <div class="pages">
+                <ul>
+                    <?php if($currPage > 1 && $pagesCount > 1) : ?>
+                    <li class="prev">
+                        <a href="<?php echo $this->getUrlWithParams('p', $currPage - 1); ?>"><span>&larr;</span>&nbsp;<?php echo $this->__("Previous"); ?></a>
+                    </li>
+                    <?php endif; ?>
+                    <?php if($currPage > 1) : ?>
+                    <li class="first">
+                        <a href="<?php echo $this->getUrlWithParams('p', 1); ?>">1</a>
+                    </li>
+                    <?php endif; ?>
+                    <?php if($currPage > 4) : ?>
+                        <li class="separator">...</li>
+                    <?php endif; ?>
+                    <?php if($currPage > 3) : ?>
+                        <li class="prev-1">
+                            <a href="<?php echo $this->getUrlWithParams('p', $currPage - 2); ?>"><?php echo ($currPage - 2); ?></a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if($currPage > 2) : ?>
+                    <li class="prev-1">
+                        <a href="<?php echo $this->getUrlWithParams('p', $currPage - 1); ?>"><?php echo ($currPage - 1); ?></a>
+                    </li>
+                    <?php endif; ?>
+                    <li class="curr"><?php echo $currPage; ?></li>
+                    <?php if($currPage < $pagesCount) : ?>
+                    <li class="next-1">
+                        <a href="<?php echo $this->getUrlWithParams('p', $currPage + 1); ?>"><?php echo ($currPage + 1); ?></a>
+                    </li>
+                    <?php endif; ?>
+                    <?php if($currPage + 1 < $pagesCount) : ?>
+                    <?php if($currPage + 2 < $pagesCount) : ?>
+                    <li class="separator">...</li>
+                    <?php endif; ?>
+                    <li class="last">
+                        <a href="<?php echo $this->getUrlWithParams('p', $pagesCount); ?>"><?php echo $pagesCount; ?></a>
+                    </li>
+                    <?php endif; ?>
+                    <?php if($currPage < $pagesCount) : ?>
+                    <li class="next">
+                        <a href="<?php echo $this->getUrlWithParams('p', $currPage + 1); ?>"><?php echo $this->__("Next"); ?>&nbsp;<span>&rarr;</span></a>
+                    </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            <?php
+            $url = Mage::helper('core/url')->getCurrentUrl();
+            if(strpos($url, '?') !== false) $url = substr($url, 0, strpos($url, '?'));
+            $url .= '?';
+            $_params = $this->getRequest()->getParams();
+            foreach($_params as $key => $value)
+                if($key != 'id' && $key != 'p' && $key != 'limit')
+                    $url .= "{$key}={$value}&";
+            ?>
+            <div class="show-all"><a href="<?php echo "{$url}limit=all"; ?>" title="<?php echo $this->__('Show all'); ?>"><?php echo $this->__('Show all'); ?></a></div>
+        </div>
+        <?php endif; ?>
+	    <noindex>
+	        <script type="text/javascript">
+	            //<![CDATA[
+	            decorateGeneric($$('ul.products-grid'), ['odd','even','first','last']);
+
+	            jQuery('ul.products-grid').each(function() {
+	                generateHeight(jQuery(this));
+	            });
+
+	            jQuery('.pages').width(jQuery('.pages ul').width() + 2);
+
+	            function generateHeight(parentElem) {
+	                height = 0;
+	                priceHeight = 0;
+	                parentElem.find('.product-name').each(function() {
+	                    if(jQuery(this).height() > height) height = jQuery(this).height();
+	                });
+	                parentElem.find('.price-td').each(function() {
+	                    if(jQuery(this).height() > priceHeight) priceHeight = jQuery(this).height();
+	                });
+	                parentElem.find('.product-name').height(height);
+	                parentElem.find('.price-td').height(priceHeight);
+	            }
+	            //]]>
+	        </script>
+	    </noindex>
+    </div>
+<?php endif; ?>

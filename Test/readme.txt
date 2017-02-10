@@ -1,0 +1,1 @@
+This module adds guest customer registration button and functionality to register guest customer to guest order view page in administration interface.

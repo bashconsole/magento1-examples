@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_Customer>
+            <version>0.2.0</version>
+        </Toppik_Customer>
+    </modules>
+    <global>
+        <helpers>
+            <toppik_customer>
+                <class>Toppik_Customer_Helper</class>
+            </toppik_customer>
+        </helpers>
+        <resources>
+            <toppik_customer_setup>
+                <setup>
+                    <module>Toppik_Customer</module>
+                    <class>Mage_Customer_Model_Resource_Setup</class>
+                </setup>
+            </toppik_customer_setup>
+        </resources>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <customer_grid>Toppik_Customer_Block_Adminhtml_Customer_Grid</customer_grid>
+                </rewrite>
+            </adminhtml>
+            <customer>
+                <rewrite>
+                    <address_renderer_default>Toppik_Customer_Block_Address_Renderer_Default</address_renderer_default>
+                </rewrite>
+            </customer>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>
+            <customer>
+                <use>standard</use>
+                <args>
+                    <modules>
+                        <Toppik_Customer before="Mage_Customer">Toppik_Customer</Toppik_Customer>
+                    </modules>
+                </args>
+            </customer>
+        </routers>
+    </frontend>
+</config>

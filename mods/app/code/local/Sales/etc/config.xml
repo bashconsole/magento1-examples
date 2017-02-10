@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_Sales>
+            <version>0.1.0</version>
+        </Toppik_Sales>
+    </modules>
+    
+    <global>
+        <models>
+            <sales>
+		<rewrite>
+			<order_invoice_total_shipping>Toppik_Sales_Model_Order_Invoice_Total_Shipping</order_invoice_total_shipping>
+			<order_address>Toppik_Sales_Model_Order_Address</order_address>
+			<order_shipment>Toppik_Sales_Model_Order_Shipment</order_shipment>
+		</rewrite>
+            </sales>
+        </models>
+    </global>
+    
+</config>

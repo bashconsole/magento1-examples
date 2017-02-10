@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Mementia_Saleable>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Mementia_Saleable>
+    </modules>
+</config>

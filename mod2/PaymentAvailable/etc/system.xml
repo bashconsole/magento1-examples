@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <payment>
+            <groups>
+				<ccsave>
+                    <fields>
+                        <scope_visibility translate="label">
+                            <label>Visible In</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymentavailable/system_config_source_scopes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Not Applicable If Method Not Enabled</comment>
+                        </scope_visibility>
+                    </fields>
+				</ccsave>
+				
+				<banktransfer>
+                    <fields>
+                        <scope_visibility translate="label">
+                            <label>Visible In</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymentavailable/system_config_source_scopes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Not Applicable If Method Not Enabled</comment>
+                        </scope_visibility>
+                    </fields>
+				</banktransfer>
+				
+				<cashondelivery>
+                    <fields>
+                        <scope_visibility translate="label">
+                            <label>Visible In</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymentavailable/system_config_source_scopes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Not Applicable If Method Not Enabled</comment>
+                        </scope_visibility>
+                    </fields>
+				</cashondelivery>
+				
+				<checkmo>
+                    <fields>
+                        <scope_visibility translate="label">
+                            <label>Visible In</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymentavailable/system_config_source_scopes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Not Applicable If Method Not Enabled</comment>
+                        </scope_visibility>
+                    </fields>
+				</checkmo>
+				
+				<purchaseorder>
+                    <fields>
+                        <scope_visibility translate="label">
+                            <label>Visible In</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymentavailable/system_config_source_scopes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Not Applicable If Method Not Enabled</comment>
+                        </scope_visibility>
+                    </fields>
+				</purchaseorder>
+				
+				<authorizenet_directpost>
+                    <fields>
+                        <scope_visibility translate="label">
+                            <label>Visible In</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymentavailable/system_config_source_scopes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Not Applicable If Method Not Enabled</comment>
+                        </scope_visibility>
+                    </fields>
+				</authorizenet_directpost>
+				
+				<authorizenet>
+                    <fields>
+                        <scope_visibility translate="label">
+                            <label>Visible In</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymentavailable/system_config_source_scopes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Not Applicable If Method Not Enabled</comment>
+                        </scope_visibility>
+                    </fields>
+				</authorizenet>
+				
+				<worldpay>
+                    <fields>
+                        <scope_visibility translate="label">
+                            <label>Visible In</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymentavailable/system_config_source_scopes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Not Applicable If Method Not Enabled</comment>
+                        </scope_visibility>
+                    </fields>
+				</worldpay>
+				
+				<braintree>
+                    <fields>
+                        <scope_visibility translate="label">
+                            <label>Visible In</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paymentavailable/system_config_source_scopes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Not Applicable If Method Not Enabled</comment>
+                        </scope_visibility>
+                    </fields>
+				</braintree>
+            </groups>
+        </payment>
+    </sections>
+</config>

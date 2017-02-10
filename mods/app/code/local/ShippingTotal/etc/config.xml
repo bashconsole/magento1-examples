@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_ShippingTotal>
+            <version>0.1.0</version>
+        </Toppik_ShippingTotal>
+    </modules>
+    
+    <global>
+        <models>
+            <sales>
+		<rewrite>
+			<order_invoice_totals_shipping>Toppik_Sales_Model_Order_Invoice_Total_Shipping</order_invoice_totals_shipping>
+		</rewrite>
+            </sales>
+        </models>
+    </global>
+    
+</config>

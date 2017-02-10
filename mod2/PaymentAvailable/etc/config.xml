@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hunter_PaymentAvailable>
+            <version>0.0.1</version>
+        </Hunter_PaymentAvailable>
+    </modules>
+	
+    <global>
+        <models>
+            <paymentavailable>
+                <class>Hunter_PaymentAvailable_Model</class>
+            </paymentavailable>
+        </models>
+		
+        <helpers>
+            <paymentavailable>
+                <class>Hunter_PaymentAvailable_Helper</class>
+            </paymentavailable>
+        </helpers>
+		
+        <events>
+            <payment_method_is_active>
+                <observers>
+                    <paymentavailable_payment_method_is_active>
+                        <class>paymentavailable/observer</class>
+                        <method>paymentIsAvailable</method>
+                    </paymentavailable_payment_method_is_active>
+                </observers>
+            </payment_method_is_active>
+        </events>
+    </global>
+</config>

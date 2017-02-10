@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_Tax>
+            <version>0.1.0</version>
+        </Toppik_Tax>
+    </modules>
+    <global>
+        <blocks>
+		<tax>
+			<rewrite>
+				<checkout_grandtotal>Toppik_Tax_Block_Checkout_Grandtotal</checkout_grandtotal>
+				<sales_order_tax>Toppik_Tax_Block_Sales_Order_Tax</sales_order_tax>
+			</rewrite>
+		</tax>
+		<adminhtml>
+			<rewrite>
+				<sales_order_totals_tax>Toppik_Tax_Adminhtml_Block_Sales_Order_Totals_Tax</sales_order_totals_tax>
+			</rewrite>
+		</adminhtml>
+        </blocks>
+	<models>
+		<tax>
+			<rewrite>
+				<calculation>Toppik_Tax_Model_Calculation</calculation>
+			</rewrite>
+		</tax>
+	</models>
+    </global> 
+</config>

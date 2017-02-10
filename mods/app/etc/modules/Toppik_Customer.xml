@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_Customer>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Customer/>
+            </depends>
+        </Toppik_Customer>
+    </modules>
+</config>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Dormando_Sales>
+      <version>0.1.0</version>
+    </Dormando_Sales>
+  </modules>
+<global>
+    <models>
+      <dormandosales>
+        <class>Dormando_Sales_Model</class>
+    </dormandosales>
+    </models>
+    <helpers>
+      <dormandosales>
+        <class>Dormando_Sales_Helper</class>
+      </dormandosales>
+    </helpers>
+  </global>
+  <adminhtml>
+    <events>
+        <controller_action_layout_render_before_adminhtml_sales_order_view>
+            <observers>
+                <dormando_sales>
+                    <class>dormandosales/adminhtml_observer</class>
+                    <method>addRegisterCustomerButton</method>
+                </dormando_sales>
+            </observers>
+        </controller_action_layout_render_before_adminhtml_sales_order_view>
+    </events>
+</adminhtml>
+<admin>
+    <routers>
+        <adminhtml>
+            <args>
+                <modules>
+                    <Dormando_Sales after="Mage_Adminhtml">Dormando_Sales</Dormando_Sales>
+                </modules>
+            </args>
+        </adminhtml>
+    </routers>
+</admin>
+</config> 

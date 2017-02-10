@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_Shipping>
+            <version>0.1.0</version>
+        </Toppik_Shipping>
+    </modules>
+    <global>
+        <models>
+		<shipping>
+			<rewrite>
+				<carrier_flatrate>Toppik_Shipping_Model_Carrier_Flatrate</carrier_flatrate>
+			</rewrite>
+		</shipping>
+        </models>
+    </global> 
+</config>

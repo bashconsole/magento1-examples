@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_Shipping>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Toppik_Shipping>
+    </modules>
+</config>

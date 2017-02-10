@@ -1,0 +1,1 @@
+This module adds icon to a product at catalog product list if product is saleable.

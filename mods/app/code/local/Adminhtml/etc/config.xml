@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_Adminhtml>
+            <version>0.1.0</version>
+        </Toppik_Adminhtml>
+    </modules>
+    <global>
+        <blocks>
+            <toppik_adminhtml>
+                <class>Toppik_Adminhtml_Block</class>
+            </toppik_adminhtml>
+            <adminhtml>
+                <rewrite>
+                    <cms_page_edit_tab_content>Toppik_Adminhtml_Block_Cms_Page_Edit_Tab_Content</cms_page_edit_tab_content>
+                    <review_edit_form>Toppik_Adminhtml_Block_Review_Edit_Form</review_edit_form>
+                </rewrite>
+            </adminhtml>
+            <enterprise_cms>
+                <rewrite>
+                    <adminhtml_cms_page_revision_edit_tab_content>Toppik_Adminhtml_Block_Enterprise_Cms_Page_Revision_Edit_Tab_Content</adminhtml_cms_page_revision_edit_tab_content>
+                </rewrite>
+            </enterprise_cms>
+        </blocks>
+    </global>
+</config>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_Adminhtml>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Adminhtml/>
+            </depends>
+        </Toppik_Adminhtml>
+    </modules>
+</config>

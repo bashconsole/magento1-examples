@@ -1,0 +1,1 @@
+This module improves standart log cleaning functionality.

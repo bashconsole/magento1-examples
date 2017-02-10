@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Toppik_Tax>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Toppik_Tax>
+    </modules>
+</config>
